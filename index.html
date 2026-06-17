@@ -45,10 +45,51 @@
     flex-shrink:0;
     background:#fff;
     border-right:1px solid var(--line);
-    padding:20px 14px;
+    padding:20px 14px 0;
     display:flex;
     flex-direction:column;
     gap:10px;
+    height:100vh;
+    position:sticky;
+    top:0;
+    overflow:hidden;
+  }
+  .sidebar-scrollable{
+    flex:1;
+    overflow-y:auto;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    padding-bottom:8px;
+  }
+  .sidebar-footer{
+    flex-shrink:0;
+    border-top:1px solid var(--line);
+    padding:10px 0 12px;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+  }
+  .theme-toggle-btn{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:7px 12px;
+    font-size:.75rem;
+    color:var(--muted);
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:5px;
+    transition:background .15s, color .15s;
+    font-family:inherit;
+    width:100%;
+    justify-content:center;
+  }
+  .theme-toggle-btn:hover{
+    background:var(--blue-light);
+    color:var(--navy);
+    border-color:var(--blue);
   }
   .sidebar h3{
     margin:0 0 4px;
@@ -978,7 +1019,227 @@
     body{ background:#fff; }
   }
 
-  /* ===== LOGIN SCREEN ===== */
+  /* ===== DARK MODE ===== */
+  body.dark-mode{
+    --navy: #a8c4f0;
+    --navy-2: #c5d8f8;
+    --blue: #4d9fff;
+    --blue-light: #1a2a3f;
+    --paper: #0f1923;
+    --line: #2a3547;
+    --ink: #e2e8f0;
+    --muted: #7a8fa8;
+    --ok: #34d399;
+    --ok-bg: #0d3326;
+    --warn: #fbbf24;
+    --warn-bg: #2d2006;
+    --pend: #64748b;
+    --pend-bg: #1a2030;
+    --danger: #f87171;
+    --danger-bg: #2d0f0f;
+    background: var(--paper);
+    color: var(--ink);
+  }
+  body.dark-mode .sidebar,
+  body.dark-mode .panel,
+  body.dark-mode .objective,
+  body.dark-mode .task,
+  body.dark-mode .add-objective-form,
+  body.dark-mode .add-task-form,
+  body.dark-mode .phase,
+  body.dark-mode .login-card{
+    background:#162032;
+    border-color:var(--line);
+    color:var(--ink);
+  }
+  body.dark-mode .objective-header,
+  body.dark-mode .phase-header{
+    background:#1a2a40;
+  }
+  body.dark-mode select,
+  body.dark-mode input[type=text],
+  body.dark-mode input[type=date],
+  body.dark-mode input[type=password],
+  body.dark-mode textarea{
+    background:#1a2535;
+    border-color:var(--line);
+    color:var(--ink);
+    color-scheme: dark;
+  }
+  body.dark-mode .btn-secondary,
+  body.dark-mode .btn-ghost,
+  body.dark-mode .trash-btn,
+  body.dark-mode .theme-toggle-btn,
+  body.dark-mode .proj-owner-toggle{
+    background:#1a2535;
+    border-color:var(--line);
+    color:var(--ink);
+  }
+  body.dark-mode .btn-secondary:hover,
+  body.dark-mode .btn-ghost:hover,
+  body.dark-mode .theme-toggle-btn:hover{
+    background:var(--blue-light);
+  }
+  body.dark-mode .progress-card,
+  body.dark-mode .quick-stat,
+  body.dark-mode .trash-modal,
+  body.dark-mode .trash-item{
+    background:#162032;
+    border-color:var(--line);
+  }
+  body.dark-mode .project-item:hover,
+  body.dark-mode .project-item.active{
+    background:#1a2a40;
+  }
+  body.dark-mode .project-item-input,
+  body.dark-mode .proj-owner-input{
+    background:#1a2535;
+    color:var(--ink);
+    border-color:var(--line);
+  }
+  body.dark-mode .sidebar-footer,
+  body.dark-mode .sidebar-filter-wrap{
+    border-color:var(--line);
+  }
+  body.dark-mode .task-notes textarea{
+    background:#1a2535;
+    color:var(--ink);
+  }
+  body.dark-mode .empty-state{
+    background:#162032;
+    border-color:var(--line);
+  }
+  body.dark-mode header{
+    background: linear-gradient(135deg, #060e1a 0%, #0d1e36 60%, #1a3a6e 130%);
+  }
+
+
+  .trash-btn{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:7px 12px;
+    font-size:.75rem;
+    color:var(--muted);
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:5px;
+    transition:background .15s, color .15s;
+    font-family:inherit;
+    width:100%;
+    justify-content:center;
+  }
+  .trash-btn:hover{
+    background:var(--danger-bg);
+    color:var(--danger);
+    border-color:#f3c5c5;
+  }
+  .trash-badge{
+    background:var(--danger);
+    color:#fff;
+    border-radius:10px;
+    font-size:.65rem;
+    font-weight:700;
+    padding:1px 6px;
+    min-width:16px;
+    text-align:center;
+  }
+  .trash-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(11,29,58,0.45);
+    display:flex;
+    align-items:flex-end;
+    justify-content:flex-start;
+    padding:0 0 54px 16px;
+    z-index:500;
+    backdrop-filter:blur(2px);
+  }
+  .trash-overlay.hidden{ display:none; }
+  .trash-modal{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:12px;
+    box-shadow:0 12px 40px rgba(0,0,0,0.18);
+    width:320px;
+    max-height:420px;
+    display:flex;
+    flex-direction:column;
+    animation:trashFadeIn .2s ease;
+  }
+  @keyframes trashFadeIn{
+    from{ opacity:0; transform:translateY(10px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+  .trash-modal-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:14px 16px 10px;
+    font-size:.9rem;
+    font-weight:700;
+    color:var(--navy);
+    border-bottom:1px solid var(--line);
+  }
+  .trash-close{
+    background:none;
+    border:none;
+    font-size:1rem;
+    color:var(--muted);
+    cursor:pointer;
+    padding:2px 6px;
+    border-radius:5px;
+    line-height:1;
+  }
+  .trash-close:hover{ background:var(--blue-light); color:var(--navy); }
+  .trash-modal-body{
+    flex:1;
+    overflow-y:auto;
+    padding:10px 12px;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+  .trash-empty{
+    text-align:center;
+    color:var(--muted);
+    font-size:.83rem;
+    padding:24px 10px;
+  }
+  .trash-item{
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:10px 12px;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+  }
+  .trash-item-name{
+    font-weight:700;
+    font-size:.88rem;
+    color:var(--navy);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .trash-item-meta{
+    font-size:.72rem;
+    color:var(--muted);
+  }
+  .trash-item-actions{
+    display:flex;
+    gap:6px;
+    margin-top:2px;
+  }
+  .trash-modal-footer{
+    padding:10px 14px;
+    border-top:1px solid var(--line);
+    display:flex;
+    justify-content:flex-end;
+  }
+
+
   .login-overlay{
     position:fixed;
     inset:0;
@@ -1150,14 +1411,22 @@
 <div class="app-layout">
   <aside class="sidebar">
     <h3>Meus OKRs</h3>
-    <div class="sidebar-filter-wrap">
-      <label class="sidebar-filter-label" for="ownerFilter">Filtrar por responsável</label>
-      <select id="ownerFilter" class="sidebar-filter-select">
-        <option value="all">Todos</option>
-      </select>
+    <div class="sidebar-scrollable">
+      <div class="sidebar-filter-wrap">
+        <label class="sidebar-filter-label" for="ownerFilter">Filtrar por responsável</label>
+        <select id="ownerFilter" class="sidebar-filter-select">
+          <option value="all">Todos</option>
+        </select>
+      </div>
+      <div class="project-list" id="projectList"></div>
+      <button class="btn-primary new-project-btn" id="newProjectBtn">+ Novo OKR</button>
     </div>
-    <div class="project-list" id="projectList"></div>
-    <button class="btn-primary new-project-btn" id="newProjectBtn">+ Novo OKR</button>
+    <div class="sidebar-footer">
+      <button class="theme-toggle-btn" id="themeToggleBtn">🌙 Modo escuro</button>
+      <button class="trash-btn" id="trashBtn" title="Lixeira de OKRs">
+        🗑️ Lixeira <span class="trash-badge" id="trashBadge" style="display:none">0</span>
+      </button>
+    </div>
   </aside>
 
   <div class="app-content">
@@ -1241,6 +1510,20 @@
 
   </div> <!-- /.app-content -->
 </div> <!-- /.app-layout -->
+
+<!-- ===== MODAL LIXEIRA ===== -->
+<div class="trash-overlay hidden" id="trashOverlay">
+  <div class="trash-modal">
+    <div class="trash-modal-header">
+      <span>🗑️ Lixeira de OKRs</span>
+      <button class="trash-close" id="trashClose">✕</button>
+    </div>
+    <div class="trash-modal-body" id="trashBody"></div>
+    <div class="trash-modal-footer">
+      <button class="btn-danger btn-small" id="emptyTrashBtn">Esvaziar lixeira</button>
+    </div>
+  </div>
+</div>
 
 <script>
 /* ============================================================
@@ -1331,6 +1614,7 @@ function loadState(){
         if(!parsed.activeProjectId || !parsed.projects.some(p => p.id === parsed.activeProjectId)){
           parsed.activeProjectId = parsed.projects[0].id;
         }
+        if(!Array.isArray(parsed.trash)) parsed.trash = [];
         return parsed;
       }
     }
@@ -1350,7 +1634,7 @@ function loadState(){
   }catch(e){ console.error("Erro ao migrar dados antigos:", e); }
 
   const first = emptyProject("Novo OKR");
-  return { projects: [first], activeProjectId: first.id };
+  return { projects: [first], activeProjectId: first.id, trash: [] };
 }
 
 function getActiveProject(){
@@ -1572,7 +1856,13 @@ function renderSidebar(){
       const projId = e.currentTarget.dataset.proj;
       const proj = appState.projects.find(p => p.id === projId);
       if(!proj) return;
-      if(!confirm(`Excluir o OKR "${proj.name}" e todos os seus objetivos e resultados-chave? Esta ação não pode ser desfeita.`)) return;
+
+      // Mover para lixeira
+      if(!appState.trash) appState.trash = [];
+      appState.trash.unshift({
+        ...JSON.parse(JSON.stringify(proj)),
+        _deletedAt: formatDate(new Date())
+      });
 
       appState.projects = appState.projects.filter(p => p.id !== projId);
       if(appState.projects.length === 0){
@@ -1583,7 +1873,8 @@ function renderSidebar(){
       }
       saveData();
       render();
-      showToast("OKR excluído.");
+      updateTrashBadge();
+      showToast("OKR movido para a lixeira. Pode ser restaurado.");
     });
   });
 
@@ -2600,10 +2891,137 @@ function showToast(msg){
 }
 
 /* ============================================================
+   LIXEIRA
+   ============================================================ */
+
+function updateTrashBadge(){
+  const trash = appState.trash || [];
+  const badge = document.getElementById("trashBadge");
+  const btn   = document.getElementById("trashBtn");
+  if(!badge || !btn) return;
+  if(trash.length > 0){
+    badge.textContent = trash.length;
+    badge.style.display = "inline-block";
+    btn.title = `Lixeira (${trash.length} OKR${trash.length > 1 ? "s" : ""})`;
+  } else {
+    badge.style.display = "none";
+    btn.title = "Lixeira de OKRs";
+  }
+}
+
+function renderTrashModal(){
+  const body = document.getElementById("trashBody");
+  if(!body) return;
+  const trash = appState.trash || [];
+  body.innerHTML = "";
+
+  if(trash.length === 0){
+    body.innerHTML = `<div class="trash-empty">A lixeira está vazia.<br>OKRs excluídos aparecerão aqui.</div>`;
+    return;
+  }
+
+  trash.forEach((proj, idx) => {
+    const total = proj.objectives ? proj.objectives.reduce((s,o) => s + (o.tasks ? o.tasks.length : 0), 0) : 0;
+    const done  = proj.objectives ? proj.objectives.reduce((s,o) => s + (o.tasks ? o.tasks.filter(t => t.status==="concluido").length : 0), 0) : 0;
+
+    const item = document.createElement("div");
+    item.className = "trash-item";
+    item.innerHTML = `
+      <div class="trash-item-name" title="${escapeHTML(proj.name)}">${escapeHTML(proj.name)||"(sem nome)"}</div>
+      <div class="trash-item-meta">
+        ${proj.owner ? `👤 ${escapeHTML(proj.owner)} · ` : ""}${total} resultado${total!==1?"s":""}-chave · ${done} concluído${done!==1?"s":""}
+        <br>Excluído em: ${proj._deletedAt || "—"}
+      </div>
+      <div class="trash-item-actions">
+        <button class="btn-primary btn-small" data-action="restore-project" data-idx="${idx}">↩️ Restaurar</button>
+        <button class="btn-danger btn-small" data-action="perm-delete-project" data-idx="${idx}">Excluir definitivo</button>
+      </div>
+    `;
+    body.appendChild(item);
+  });
+
+  body.querySelectorAll('[data-action="restore-project"]').forEach(btn => {
+    btn.addEventListener("click", e => {
+      const idx = parseInt(e.currentTarget.dataset.idx);
+      const proj = appState.trash.splice(idx, 1)[0];
+      delete proj._deletedAt;
+      appState.projects.push(proj);
+      appState.activeProjectId = proj.id;
+      saveData();
+      render();
+      updateTrashBadge();
+      renderTrashModal();
+      showToast(`"${proj.name}" restaurado com sucesso.`);
+    });
+  });
+
+  body.querySelectorAll('[data-action="perm-delete-project"]').forEach(btn => {
+    btn.addEventListener("click", e => {
+      const idx = parseInt(e.currentTarget.dataset.idx);
+      const proj = appState.trash[idx];
+      if(!confirm(`Excluir permanentemente "${proj.name}"? Não será possível recuperar.`)) return;
+      appState.trash.splice(idx, 1);
+      saveData();
+      updateTrashBadge();
+      renderTrashModal();
+      showToast("OKR excluído permanentemente.");
+    });
+  });
+}
+
+/* ============================================================
+   TEMA CLARO / ESCURO
+   ============================================================ */
+
+const THEME_KEY = "okr_theme";
+
+function applyTheme(dark){
+  document.body.classList.toggle("dark-mode", dark);
+  const btn = document.getElementById("themeToggleBtn");
+  if(btn) btn.textContent = dark ? "☀️ Modo claro" : "🌙 Modo escuro";
+}
+
+function initTheme(){
+  const saved = localStorage.getItem(THEME_KEY);
+  const dark = saved === "dark";
+  applyTheme(dark);
+}
+
+document.getElementById("themeToggleBtn").addEventListener("click", () => {
+  const isDark = document.body.classList.contains("dark-mode");
+  localStorage.setItem(THEME_KEY, isDark ? "light" : "dark");
+  applyTheme(!isDark);
+});
+
+
+document.getElementById("trashBtn").addEventListener("click", () => {
+  document.getElementById("trashOverlay").classList.remove("hidden");
+  renderTrashModal();
+});
+document.getElementById("trashClose").addEventListener("click", () => {
+  document.getElementById("trashOverlay").classList.add("hidden");
+});
+document.getElementById("trashOverlay").addEventListener("click", e => {
+  if(e.target === document.getElementById("trashOverlay"))
+    document.getElementById("trashOverlay").classList.add("hidden");
+});
+document.getElementById("emptyTrashBtn").addEventListener("click", () => {
+  if(!appState.trash || appState.trash.length === 0) return;
+  if(!confirm(`Esvaziar a lixeira? Todos os ${appState.trash.length} OKR(s) serão perdidos para sempre.`)) return;
+  appState.trash = [];
+  saveData();
+  updateTrashBadge();
+  renderTrashModal();
+  showToast("Lixeira esvaziada.");
+});
+
+/* ============================================================
    INICIALIZAÇÃO
    ============================================================ */
 
 render();
+updateTrashBadge();
+initTheme();
 </script>
 
 </body>
